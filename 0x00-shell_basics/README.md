@@ -4,4 +4,5 @@ Task 0. Where am I?
 Task 2
 Display current directory contents in a long format
 
-
+#!/bin/bash
+This will Display current directory contents
