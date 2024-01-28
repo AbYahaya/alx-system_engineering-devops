@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#This displays 1 to 20 and usess 'case' statement too
+num="1"
+while ((num < 21)); do
+	case $num in
+		4)
+			echo "$num"
+			echo "bad luck from China"
+			num=$((num+1))
+			;;
+		9)
+			echo "$num"
+			echo "bad luck from Japan"
+			num=$((num+1))
+			;;
+		17)
+			echo "$num"
+			echo "bad luck from Italy"
+			num=$((num+1))
+			;;
+		*)
+			echo "$num"
+			num=$((num+1))
+			;;
+	esac
+done
