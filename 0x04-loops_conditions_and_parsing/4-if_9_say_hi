@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#This prints 'Best school' 10x but display hi in the 9th iteration
+i="1"
+while [ $i -lt 11 ]; do
+	if (( i != 9 )); then
+		echo "Best School"
+		i=$((i+1))
+	else
+		echo "Best School"
+		echo "Hi"
+		i=$((i+1))
+	fi
+done
