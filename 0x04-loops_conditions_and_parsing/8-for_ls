@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#Prints pwd in long format starting from firstletter after the first _
+for i in *; do
+	echo "$i" | cut -f2 -d'-'
+done
