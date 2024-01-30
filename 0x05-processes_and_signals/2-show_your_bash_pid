@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#THis uses grep to display all pids with bash
+# shellcheck disable=SC2009
+top | grep bash
