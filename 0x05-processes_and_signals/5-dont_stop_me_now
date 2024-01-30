@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Using kill to terminate a process
+k_pid=$(pgrep -a "bash" | grep '4-to_infinity_and_beyond' | cut -d' ' -f1)
+kill "$k_pid"
