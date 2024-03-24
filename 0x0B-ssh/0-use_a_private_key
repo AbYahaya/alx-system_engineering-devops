@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#To connect to server using ssh
+server=52450-web-01
+ssh -i ~/.ssh/school ubuntu@$server
