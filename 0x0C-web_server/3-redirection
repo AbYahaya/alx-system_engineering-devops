@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Check if script is run as root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root"
+    exit 1
+fi
+
+# Update package lists
+apt-get update
+apt-get upgrade
+# Install nginx
+apt-get install -y nginx
+
+# Configure nginx for redirection
+cat << EOF > /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm;
+    server_name _;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Restart nginx
+/etc/init.d/nginx restart
+
+# Check if nginx is running
+nginx_pid=$(pidof nginx)
+if [ -z "$nginx_pid" ]; then
+    echo "Nginx failed to start."
+else
+    echo "Nginx is now running and listening on port 80."
+fi
