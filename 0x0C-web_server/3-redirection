@@ -1,44 +1,25 @@
 #!/usr/bin/env bash
 
-# Check if script is run as root
-if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root"
-    exit 1
+# Update package lists and upgrade installed packages
+sudo apt-get -y update
+sudo apt-get -y upgrade
+
+# Install Nginx
+sudo apt-get -y install nginx
+
+# Start Nginx service if not already running
+if ! systemctl is-active --quiet nginx; then
+    sudo service nginx start
 fi
 
-# Update package lists
-apt-get update
-apt-get upgrade
-# Install nginx
-apt-get install -y nginx
+# Backup the original Nginx configuration file
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 
-service nginx start
-# Configure nginx for redirection
-cat << EOF > /etc/nginx/sites-available/default
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    index index.html index.htm;
-    server_name _;
+# Define the redirection configuration
+redirection_config="\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
+# Insert the redirection configuration into the Nginx default site configuration
+sudo sed -i "19i $redirection_config" /etc/nginx/sites-available/default
 
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOF
-
-# Restart nginx
-/etc/init.d/nginx restart
-
-# Check if nginx is running
-nginx_pid=$(pidof nginx)
-if [ -z "$nginx_pid" ]; then
-    echo "Nginx failed to start."
-else
-    echo "Nginx is now running and listening on port 80."
-fi
+# Restart Nginx service
+sudo service nginx restart
