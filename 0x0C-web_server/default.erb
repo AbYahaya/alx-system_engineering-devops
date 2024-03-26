@@ -1,0 +1,21 @@
+# Contents of default.erb:
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm;
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+        # Return "Hello World!" page
+        add_header Content-Type text/html;
+        return 200 "<!DOCTYPE html><html><head><title>Hello World!</title></head><body><h1>Hello World!</h1></body></html>";
+    }
+
+    location /redirect_me {
+        # Perform a 301 redirect to the specified URL
+        return 301 https://www.example.com/new_page;
+    }
+}
