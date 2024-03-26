@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+#A script to install nginx in a new ubuntu machine
+# Check if script is run as root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root"
+    exit 1
+fi
+apt-get update
+apt-get upgrade
+
+# Install nginx
+apt-get install -y nginx
+
+# Configure nginx to listen on port 80
+cat << EOF > /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm;
+    server_name _;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Create the HTML file with "Hello World!" content
+cat << EOF > /var/www/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World!</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+</body>
+</html>
+EOF
+
+# Restart nginx
+/etc/init.d/nginx restart
+
+# Check if nginx is running
+nginx_pid=$(pidof nginx)
+if [ -z "$nginx_pid" ]; then
+    echo "Nginx failed to start."
+else
+    echo "Nginx is now running and listening on port 80."
+fi
