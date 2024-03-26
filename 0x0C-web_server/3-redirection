@@ -12,6 +12,7 @@ apt-get upgrade
 # Install nginx
 apt-get install -y nginx
 
+service nginx start
 # Configure nginx for redirection
 cat << EOF > /etc/nginx/sites-available/default
 server {
