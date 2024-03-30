@@ -7,6 +7,6 @@ sudo apt-get -y install nginx
 #defines custom header
 header_value=$(hostname)
 
-echo 'add_header X-Served-By $header_value;' | sudo -a tee /etc/nginx/nginx.conf > /dev/null
+sudo sed -i "15i \\\tadd_header X-Served-By $header_value;" /etc/nginx/nginx.conf
 service nginx restart
 echo "Nginx configured with custom HTTP response header X-Served-By containing the hostname of the server."
