@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#Install and configure a load balancer to server 2 webservers
+
+#Creates a dedicated personal package archive(ppa)
+sudo apt-get install -y  --no-install-recommends software-properties-common
+sudo add-apt-repository -y ppa:vbernat/haproxy-2.0
+sudo apt-get -y update
+sudo apt-get install haproxy=2.0.\*
+
+#to configure load balancer after installation
+sudo echo "frontend http
+		bind *:80
+		mode http
+
+		default_backend web-backend
+
+	  backend web-backend
+		balance roundrobin
+       		server 52450-web-01 34.205.65.113:80 check
+   	    	server 52450-web-02 34.229.67.26:80 check" >> /etc/haproxy/haproxy.cfg
+
+service haproxy restart
