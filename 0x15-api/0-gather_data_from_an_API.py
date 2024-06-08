@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 """
-Ab Yahaya
+Collecting request from an API
 """
-
 import requests
 import sys
 
 
 def get_employee_todo_progress(employee_id):
-    # Base URL of the REST API
+    """
+    Base URL of the REST API
+    """
     base_url = "https://jsonplaceholder.typicode.com"
 
     # Fetch user data
