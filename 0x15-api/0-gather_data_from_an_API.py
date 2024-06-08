@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """
+
 Collecting request from an API
+
 """
 import requests
 import sys
@@ -34,8 +36,10 @@ def get_employee_todo_progress(employee_id):
     done_tasks = [todo for todo in todos if todo.get('completed')]
     number_of_done_tasks = len(done_tasks)
 
-    print(f"Employee {employee_name} is done with tasks
-          ({number_of_done_tasks}/{total_tasks}): ")
+    print(
+        f"Employee {employee_name} is done with tasks"
+        f"({number_of_done_tasks}/{total_tasks}):"
+    )
     for task in done_tasks:
         print(f"\t {task.get('title')}")
 
