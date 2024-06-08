@@ -3,8 +3,8 @@
 All Users in json
 """
 
-import requests
 import json
+import requests
 
 
 def fetch_and_export_todo_data():
