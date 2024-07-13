@@ -16,7 +16,7 @@ sudo echo "frontend http
 
 	  backend web-backend
 		balance roundrobin
-       		server 52450-web-01 100.26.220.111:80 check
-   	    	server 52450-web-02 54.157.129.221:80 check" >> /etc/haproxy/haproxy.cfg
+       		server 52450-web-01 54.224.18.138:80 check
+   	    	server 52450-web-02 18.206.198.235:80 check" >> /etc/haproxy/haproxy.cfg
 
 service haproxy restart
