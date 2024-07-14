@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #This file configures to nginx to listen on port 80
 
-cat <<EOL > /etc/nginx/sites-available/default
+cat << 'EOL' > /etc/nginx/sites-available/default
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
