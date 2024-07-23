@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 #A shorter version of the previous task
+#!/bin/bash
 useradd -r -s /sbin/nologin nginx
 sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
-sed -i 's/listen 80 default_server;/listen 8080 default_server;/' /etc/nginx/sites-available/default
-sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:8080 default_server;/' /etc/nginx/sites-available/default
-mkdir -p /var/cache/nginx
-chown -R nginx:nginx /var/log/nginx /var/cache/nginx
-service nginx restart
+sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-available/default
+chown -R nginx:nginx /var/log/nginx && service nginx restart
