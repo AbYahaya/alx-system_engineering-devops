@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Variables
+MYSQL_USER="root"
+NEW_USER="holberton_user"
+NEW_PASSWORD="projectcorrection280hbtn"
+
+# MySQL commands
+MYSQL_CMD="mysql -u $MYSQL_USER -e"
+
+# Create the user and grant permissions
+$MYSQL_CMD "CREATE USER '$NEW_USER'@'localhost' IDENTIFIED BY '$NEW_PASSWORD';"
+$MYSQL_CMD "GRANT REPLICATION CLIENT ON *.* TO '$NEW_USER'@'localhost';"
+$MYSQL_CMD "FLUSH PRIVILEGES;"
+
+echo "User $NEW_USER created and granted replication client privileges."

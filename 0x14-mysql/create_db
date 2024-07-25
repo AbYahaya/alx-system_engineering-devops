@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Variables
+MYSQL_USER="root"
+NEW_USER="holberton_user"
+NEW_PASSWORD="projectcorrection280hbtn"
+DB_NAME="tyrell_corp"
+TABLE_NAME="nexus6"
+
+# MySQL commands
+MYSQL_CMD="mysql -u $MYSQL_USER -e"
+
+# Create database
+$MYSQL_CMD "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+
+# Create table and add entry
+$MYSQL_CMD "USE $DB_NAME; CREATE TABLE IF NOT EXISTS $TABLE_NAME (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL);"
+$MYSQL_CMD "USE $DB_NAME; INSERT INTO $TABLE_NAME (name) VALUES ('Roy Batty');"
+
+# Grant SELECT permissions to holberton_user
+$MYSQL_CMD "GRANT SELECT ON $DB_NAME.$TABLE_NAME TO '$NEW_USER'@'localhost';"
+$MYSQL_CMD "FLUSH PRIVILEGES;"
+
+echo "Database $DB_NAME with table $TABLE_NAME created, and user $NEW_USER granted SELECT permissions."
