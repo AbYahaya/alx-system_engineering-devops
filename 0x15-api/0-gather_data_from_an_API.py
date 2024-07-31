@@ -27,7 +27,7 @@ def get_employee_todo_progress(employee_id):
     response_todos = requests.get(todos_url)
 
     if response_todos.status_code != 200:
-        print(f"Error: Unable to fetch TODO list for user with ID {employee_id}")
+        print(f"Error: Unable to fetch TODO for user with ID {employee_id}")
         return
 
     todos_data = response_todos.json()
